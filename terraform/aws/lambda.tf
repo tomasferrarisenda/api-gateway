@@ -25,12 +25,12 @@ resource "aws_lambda_function" "lambda_sum" {
   source_code_hash = filebase64sha256("./templates/lambda_sum.zip")
 }
 
-resource "aws_lambda_function" "hello_lambda" {
-  filename         = "./templates/hello_lambda_function.zip"
-  function_name    = "hello_lambda"
-  role             = aws_iam_role.lambda_role.arn
-  handler          = "hello_lambda_function.lambda_handler"
-  runtime          = "python3.8"
+# resource "aws_lambda_function" "hello_lambda" {
+#   filename         = "./templates/hello_lambda_function.zip"
+#   function_name    = "hello_lambda"
+#   role             = aws_iam_role.lambda_role.arn
+#   handler          = "hello_lambda_function.lambda_handler"
+#   runtime          = "python3.8"
 
-  source_code_hash = filebase64sha256("./templates/hello_lambda_function.zip")
-}
+#   source_code_hash = filebase64sha256("./templates/hello_lambda_function.zip")
+# }
