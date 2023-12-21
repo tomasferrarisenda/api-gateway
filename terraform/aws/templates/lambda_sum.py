@@ -1,15 +1,9 @@
-# def lambda_handler(event, context):
-#     number1 = event['number1']
-#     number2 = event['number2']
-#     return {'sum': number1 + number2}
-
-
 import json
 
 def lambda_handler(event, context):
     # Extracting number1 and number2 from the event object
-    number1 = event.get('number1')
-    number2 = event.get('number2')
+    number1 = json.loads(event['body'])['number1']
+    number2 = json.loads(event['body'])['number1']
 
     # Check if number1 and number2 are provided
     if number1 is None or number2 is None:

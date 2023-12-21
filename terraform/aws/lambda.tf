@@ -13,8 +13,6 @@ resource "aws_iam_role" "lambda_role" {
   })
 }
 
-
-
 resource "aws_lambda_function" "lambda_sum" {
   filename      = "./templates/lambda_sum.zip"
   function_name = "lambda_sum"
@@ -25,10 +23,9 @@ resource "aws_lambda_function" "lambda_sum" {
   source_code_hash = filebase64sha256("./templates/lambda_sum.zip")
 }
 
-# Use this for testing:
 # {
-#   "number1": 2,
-#   "number2": 2
+#   "number1": 10,
+#   "number2": 5
 # }
 
 # curl -X POST https://lkq5yijt31.execute-api.us-east-1.amazonaws.com/dev/myresource \
@@ -37,14 +34,14 @@ resource "aws_lambda_function" "lambda_sum" {
 # -d '{"number1": 10, "number2": 5}'
 
 
-resource "aws_lambda_function" "hello_lambda" {
-  filename         = "./templates/hello_lambda_function.zip"
+resource "aws_lambda_function" "lambda_hello" {
+  filename         = "./templates/lambda_hello.zip"
   function_name    = "hello_lambda"
   role             = aws_iam_role.lambda_role.arn
-  handler          = "hello_lambda_function.lambda_handler"
+  handler          = "lambda_hello.lambda_handler"
   runtime          = "python3.8"
 
-  source_code_hash = filebase64sha256("./templates/hello_lambda_function.zip")
+  source_code_hash = filebase64sha256("./templates/lambda_hello.zip")
 }
 
 # curl -X GET https://lkq5yijt31.execute-api.us-east-1.amazonaws.com/dev//hello \
