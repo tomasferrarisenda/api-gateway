@@ -31,8 +31,8 @@ resource "aws_lambda_function" "lambda_sum" {
 #   "number2": 2
 # }
 
-# curl -X POST https://[API_GATEWAY_BASE_URL]/myresource \
-# -H "x-api-key: [YOUR_API_KEY]" \
+# curl -X POST https://lkq5yijt31.execute-api.us-east-1.amazonaws.com/dev/myresource \
+# -H "x-api-key: Vd2ykeBup43hK5UCwX2t38lRBe5rcVX73gYwjKKU" \
 # -H "Content-Type: application/json" \
 # -d '{"number1": 10, "number2": 5}'
 
@@ -47,5 +47,5 @@ resource "aws_lambda_function" "hello_lambda" {
   source_code_hash = filebase64sha256("./templates/hello_lambda_function.zip")
 }
 
-# curl -X GET https://[API_GATEWAY_BASE_URL]/hello \
-# -H "x-api-key: [YOUR_API_KEY]"
+# curl -X GET https://lkq5yijt31.execute-api.us-east-1.amazonaws.com/dev//hello \
+# -H "x-api-key: Vd2ykeBup43hK5UCwX2t38lRBe5rcVX73gYwjKKU"
