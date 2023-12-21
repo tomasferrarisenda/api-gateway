@@ -13,12 +13,22 @@ resource "aws_iam_role" "lambda_role" {
   })
 }
 
-resource "aws_lambda_function" "test_lambda" {
-  filename      = "./templates/lambda_function.zip"
+resource "aws_lambda_function" "lambda_sum" {
+  filename      = "./templates/lambda_sum.zip"
   function_name = "lambda_sum"
   role          = aws_iam_role.lambda_role.arn
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.8"
 
   source_code_hash = filebase64sha256("./templates/lambda_sum.zip")
+}
+
+resource "aws_lambda_function" "lambda_hello_world" {
+  filename      = "./templates/lambda_hello_world.zip"
+  function_name = "lambda_hello_world"
+  role          = aws_iam_role.lambda_role.arn
+  handler       = "lambda_function.lambda_handler"
+  runtime       = "python3.8"
+
+  source_code_hash = filebase64sha256("./templates/lambda_hello_world.zip")
 }
