@@ -1,56 +1,56 @@
-# # ----------------- VPC -----------------
+# ----------------- VPC -----------------
 
-# resource "aws_vpc" "main" {
-#   cidr_block = "10.0.0.0/16"
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
 
-#   enable_dns_hostnames = true
+  enable_dns_hostnames = true
 
-#   tags = {
-#     Name = "main"
-#   }
-# }
+  tags = {
+    Name = "main"
+  }
+}
 
 
 
-# # ----------------- Internet Gateway -----------------
+# ----------------- Internet Gateway -----------------
 
-# resource "aws_internet_gateway" "igw" {
-#   vpc_id = aws_vpc.main.id
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
 
-#   tags = {
-#     Name = "igw"
-#   }
-# }
+  tags = {
+    Name = "igw"
+  }
+}
 
 
 
 # # ----------------- Subnets -----------------
 
 # # Public & private subnets in Availability Zone A
-# resource "aws_subnet" "public-subnet-a" {
-#   vpc_id                  = aws_vpc.main.id
-#   cidr_block              = "10.0.0.0/19"
-#   availability_zone       = "${var.region}a"
-#   map_public_ip_on_launch = true
+resource "aws_subnet" "public-subnet-a" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.0.0/19"
+  availability_zone       = "${var.region}a"
+  map_public_ip_on_launch = true
 
-#   tags = {
-#     "Name"                                         = "public-${var.region}-a"
-#     "kubernetes.io/role/elb"                       = "1"
-#     "kubernetes.io/cluster/${var.project}-cluster" = "owned"
-#   }
-# }
+  tags = {
+    "Name"                                         = "public-${var.region}-a"
+    "kubernetes.io/role/elb"                       = "1"
+    "kubernetes.io/cluster/${var.project}-cluster" = "owned"
+  }
+}
 
-# resource "aws_subnet" "private-subnet-a" {
-#   vpc_id            = aws_vpc.main.id
-#   cidr_block        = "10.0.32.0/19"
-#   availability_zone = "${var.region}a"
+resource "aws_subnet" "private-subnet-a" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.32.0/19"
+  availability_zone = "${var.region}a"
 
-#   tags = {
-#     "Name"                                         = "private-${var.region}-a"
-#     "kubernetes.io/role/internal-elb"              = "1"
-#     "kubernetes.io/cluster/${var.project}-cluster" = "owned"
-#   }
-# }
+  tags = {
+    "Name"                                         = "private-${var.region}-a"
+    "kubernetes.io/role/internal-elb"              = "1"
+    "kubernetes.io/cluster/${var.project}-cluster" = "owned"
+  }
+}
 
 # # Public & private subnets in Availability Zone B
 # resource "aws_subnet" "public-subnet-b" {
@@ -107,24 +107,24 @@
 # # ----------------- NAT Gateway -----------------
 
 # # For AZ A Public Subnet
-# resource "aws_eip" "eip-a" { 
-#   vpc = true
+resource "aws_eip" "eip-a" { 
+  vpc = true
 
-#   tags = {
-#     Name = "eip-a" 
-#   }
-# }
+  tags = {
+    Name = "eip-a" 
+  }
+}
 
-# resource "aws_nat_gateway" "ngw-a" { 
-#   allocation_id = aws_eip.eip-a.id 
-#   subnet_id     = aws_subnet.public-subnet-a.id
+resource "aws_nat_gateway" "ngw-a" { 
+  allocation_id = aws_eip.eip-a.id 
+  subnet_id     = aws_subnet.public-subnet-a.id
 
-#   tags = {
-#     Name = "ngw-a"
-#   }
+  tags = {
+    Name = "ngw-a"
+  }
 
-#   depends_on = [aws_internet_gateway.igw]
-# }
+  depends_on = [aws_internet_gateway.igw]
+}
 
 # # For AZ B Public Subnet
 # resource "aws_eip" "eip-b" {
@@ -169,32 +169,32 @@
 # # ----------------- Routes -----------------
 
 # # For all public subnets
-# resource "aws_route_table" "public" {
-#   vpc_id = aws_vpc.main.id
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main.id
 
-#   route {
-#     cidr_block = "0.0.0.0/0"
-#     gateway_id = aws_internet_gateway.igw.id
-#   }
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
 
-#   tags = {
-#     Name = "public"
-#   }
-# }
+  tags = {
+    Name = "public"
+  }
+}
 
 # # For private subnet a
-# resource "aws_route_table" "private-a" { 
-#   vpc_id = aws_vpc.main.id
+resource "aws_route_table" "private-a" { 
+  vpc_id = aws_vpc.main.id
 
-#   route {
-#     cidr_block     = "0.0.0.0/0"
-#     nat_gateway_id = aws_nat_gateway.ngw-a.id 
-#   }
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.ngw-a.id 
+  }
 
-#   tags = {
-#     Name = "private-subnet-a"
-#   }
-# }
+  tags = {
+    Name = "private-subnet-a"
+  }
+}
 
 # # For private subnet b
 # resource "aws_route_table" "private-b" {
@@ -225,15 +225,15 @@
 # }
 
 # # Assosiation for AZ A
-# resource "aws_route_table_association" "public-subnet-a" {
-#   subnet_id      = aws_subnet.public-subnet-a.id
-#   route_table_id = aws_route_table.public.id
-# }
+resource "aws_route_table_association" "public-subnet-a" {
+  subnet_id      = aws_subnet.public-subnet-a.id
+  route_table_id = aws_route_table.public.id
+}
 
-# resource "aws_route_table_association" "private-subnet-a" {
-#   subnet_id      = aws_subnet.private-subnet-a.id
-#   route_table_id = aws_route_table.private-a.id 
-# }
+resource "aws_route_table_association" "private-subnet-a" {
+  subnet_id      = aws_subnet.private-subnet-a.id
+  route_table_id = aws_route_table.private-a.id 
+}
 
 # # Assosiation for AZ B
 # resource "aws_route_table_association" "public-subnet-b" {
