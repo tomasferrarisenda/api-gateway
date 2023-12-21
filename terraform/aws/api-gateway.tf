@@ -95,3 +95,44 @@ resource "aws_api_gateway_integration" "hello_lambda_integration" {
 output "base_url" {
   value = "${aws_api_gateway_deployment.api_deployment.invoke_url}/"
 }
+
+
+# API Key resource
+resource "aws_api_gateway_api_key" "my_api_key" {
+  name = "my-api-key"
+  description = "API Key for accessing my API"
+  enabled = true
+}
+
+# Usage plan resource
+resource "aws_api_gateway_usage_plan" "my_api_usage_plan" {
+  name = "my-usage-plan"
+  description = "Usage plan for my API"
+
+  api_stages {
+    api_id = aws_api_gateway_rest_api.my_api.id
+    stage = aws_api_gateway_deployment.api_deployment.stage_name
+  }
+
+  # Define quotas and throttling as needed
+  # quota {
+  #   limit = 1000
+  #   period = "DAY"
+  # }
+  # throttle {
+  #   burst_limit = 20
+  #   rate_limit = 10
+  # }
+}
+
+# Associate API Key with the Usage Plan
+resource "aws_api_gateway_usage_plan_key" "my_api_key_association" {
+  key_id = aws_api_gateway_api_key.my_api_key.id
+  key_type = "API_KEY"
+  usage_plan_id = aws_api_gateway_usage_plan.my_api_usage_plan.id
+}
+
+# Output the API Key
+output "api_key" {
+  value = aws_api_gateway_api_key.my_api_key.value
+}

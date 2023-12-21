@@ -25,6 +25,17 @@ resource "aws_lambda_function" "lambda_sum" {
   source_code_hash = filebase64sha256("./templates/lambda_sum.zip")
 }
 
+# Use this for testing:
+# {
+#   "number1": 2,
+#   "number2": 2
+# }
+
+# curl -X POST \
+# https://lkq5yijt31.execute-api.us-east-1.amazonaws.com/dev \
+# -H 'Content-Type: application/json' \
+# -d '{"number1":2, "number2":2}'
+
 resource "aws_lambda_function" "hello_lambda" {
   filename         = "./templates/hello_lambda_function.zip"
   function_name    = "hello_lambda"
