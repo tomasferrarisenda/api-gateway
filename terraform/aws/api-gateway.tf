@@ -24,7 +24,17 @@ resource "aws_api_gateway_integration" "lambda_integration" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = aws_lambda_function.lambda_sum.invoke_arn
+
+  request_templates = {
+    "application/json" = <<EOF
+{
+  "number1": $input.json('$.number1'),
+  "number2": $input.json('$.number2')
 }
+EOF
+  }
+
+
 
 resource "aws_lambda_permission" "api_lambda_permission" {
   statement_id  = "AllowAPIGatewayInvoke"
