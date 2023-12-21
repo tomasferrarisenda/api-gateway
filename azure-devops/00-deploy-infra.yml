@@ -114,7 +114,8 @@ steps:
     publishLocation: 'Container'
 
 - script: | 
-    echo "$(terraform -chdir=terraform/aws output -raw api_key)" > api_key.txt
+    echo "$(terraform -chdir=terraform/aws output -raw base_url)" > api_key.txt
+    echo "$(terraform -chdir=terraform/aws output -raw api_key)" >> api_key.txt
   displayName: 'Configure AWS Profile'
   condition: always()
 
