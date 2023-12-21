@@ -1,7 +1,7 @@
 # API Gateway
 resource "aws_api_gateway_rest_api" "my_api" {
   name        = "${var.project}-api"
-  description = "Example API Gateway"
+  description = "${var.project} API Gateway"
 }
 
 resource "aws_api_gateway_deployment" "api_deployment" {
