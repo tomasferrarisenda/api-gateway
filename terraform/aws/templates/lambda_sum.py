@@ -3,7 +3,7 @@ import json
 def lambda_handler(event, context):
     # Extracting number1 and number2 from the event object
     number1 = json.loads(event['body'])['number1']
-    number2 = json.loads(event['body'])['number1']
+    number2 = json.loads(event['body'])['number2']
 
     # Check if number1 and number2 are provided
     if number1 is None or number2 is None:
