@@ -20,5 +20,5 @@ resource "aws_lambda_function" "test_lambda" {
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.8"
 
-  source_code_hash = filebase64sha256("./templates/lambda_function.zip")
+  source_code_hash = filebase64sha256("./templates/lambda_sum.zip")
 }
