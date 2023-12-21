@@ -113,6 +113,20 @@ steps:
     ArtifactName: 'SSH to bastion'
     publishLocation: 'Container'
 
+- script: | 
+    echo "$(terraform -chdir=terraform/aws output -raw api_key)" > api_key.txt
+  displayName: 'Configure AWS Profile'
+  condition: always()
+
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Export API-KEY'
+  condition: always()
+  inputs:
+    PathtoPublish: 'api_key.txt'
+    ArtifactName: 'API-KEY'
+    publishLocation: 'Container'
+
 # - script: | 
 #     mkdir ~/.aws
 #     echo -e "[default]\naws_access_key_id = $(aws_access_key_id)\naws_secret_access_key = $(aws_secret_access_key)" > ~/.aws/credentials
