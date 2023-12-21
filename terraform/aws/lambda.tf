@@ -34,6 +34,7 @@ resource "aws_lambda_function" "lambda_sum" {
 # curl -X POST \
 # https://lkq5yijt31.execute-api.us-east-1.amazonaws.com/dev \
 # -H 'Content-Type: application/json' \
+# -H 'x-api-key: your-api-key' \
 # -d '{"number1":2, "number2":2}'
 
 resource "aws_lambda_function" "hello_lambda" {

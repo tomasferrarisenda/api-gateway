@@ -134,5 +134,6 @@ resource "aws_api_gateway_usage_plan_key" "my_api_key_association" {
 
 # Output the API Key
 output "api_key" {
+    sensitive = true
   value = aws_api_gateway_api_key.my_api_key.value
 }
