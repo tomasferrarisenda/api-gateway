@@ -73,7 +73,7 @@ resource "aws_api_gateway_method" "hello_api_method" {
 resource "aws_lambda_permission" "hello_api_lambda_permission" {
   statement_id  = "AllowAPIGatewayInvokeHello"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.hello_lambda.function_name
+  function_name = aws_lambda_function.lambda_hello.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.my_api.execution_arn}/*/GET/hello"
 }
@@ -85,7 +85,7 @@ resource "aws_api_gateway_integration" "hello_lambda_integration" {
 
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
-  uri                     = aws_lambda_function.hello_lambda.invoke_arn
+  uri                     = aws_lambda_function.lambda_hello.invoke_arn
 }
 
 
