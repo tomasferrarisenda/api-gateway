@@ -1,0 +1,7 @@
+/node_modules
+/.vscode
+*.tfstate
+*.tfstate.*
+tfplan
+.terraform/
+terraform.tfstate.backup
