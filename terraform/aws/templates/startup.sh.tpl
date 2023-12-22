@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# Disable prompt when installing npm
 sudo sed -i "s/#\$nrconf{restart} = 'i';/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
 
 sudo apt-get update
