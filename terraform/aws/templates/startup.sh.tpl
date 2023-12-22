@@ -11,6 +11,7 @@ cd /home/ubuntu/myapp
 
 git clone https://github.com/tomasferrarisenda/api.git .
 
-npm install
+sudo npm install
+sudo npm install pm2 -g
 
-node index.js
+pm2 start index.js

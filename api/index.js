@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express(); // Create an Express application using the express function
-const PORT = 8080;
+const PORT = 3000;
 
 app.use(express.json()); // Middleware to parse JSON bodies
 
