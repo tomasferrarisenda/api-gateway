@@ -1,5 +1,5 @@
-# #!/bin/bash
-sudo sed -i "s/\$nrconf{restart} = 'i';/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
+#!/bin/bash
+sudo sed -i "s/#\$nrconf{restart} = 'i';/\$nrconf{restart} = 'a';/" /etc/needrestart/needrestart.conf
 
 sudo apt-get update
 sudo apt-get install -y nodejs npm
