@@ -7,15 +7,18 @@ sudo apt-get install -y nodejs
 mkdir /home/ubuntu/myapp
 cd /home/ubuntu/myapp
 
-# Add your Node.js application files
-cat <<'END' > index.js
-${file("${path.module}/../api/index.js")}
-END
 
-# Install dependencies (if you have a package.json file)
-cat <<'END' > package.json
-${file("${path.module}/../api/package.json")}
-END
+git clone https://github.com/tomasferrarisenda/api.git .
+
+# # Add your Node.js application files
+# cat <<'END' > index.js
+# ${file("${path.module}/../api/index.js")}
+# END
+
+# # Install dependencies (if you have a package.json file)
+# cat <<'END' > package.json
+# ${file("${path.module}/../api/package.json")}
+# END
 npm install
 
 # Install and start your application using a process manager like pm2
