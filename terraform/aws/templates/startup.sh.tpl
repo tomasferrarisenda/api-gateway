@@ -1,5 +1,5 @@
 # #!/bin/bash
-
+sudo NEEDRESTART_MODE=a apt-get dist-upgrade --yes
 
 sudo apt-get update
 sudo apt-get install -y nodejs npm
