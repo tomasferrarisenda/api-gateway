@@ -14,3 +14,9 @@ resource "aws_s3_bucket" "memes" {
     }
 }
 
+resource "aws_s3_bucket_object" "my_app" {
+  bucket = aws_s3_bucket.my_bucket.bucket
+  key    = "api.zip"
+  source = "./templates/api.zip"  # Path to your ZIP file on your local machine
+  etag   = filemd5("./templates/api.zip")
+}
