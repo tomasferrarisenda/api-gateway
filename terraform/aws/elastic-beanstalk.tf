@@ -17,8 +17,9 @@ resource "aws_iam_role" "eb_role" {
 
 resource "aws_iam_role_policy_attachment" "eb_role_policy" {
   role       = aws_iam_role.eb_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkWebTier"
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkFullAccess"  # Updated policy ARN
 }
+
 
 resource "aws_iam_instance_profile" "eb_instance_profile" {
   name = "my-eb-instance-profile"
