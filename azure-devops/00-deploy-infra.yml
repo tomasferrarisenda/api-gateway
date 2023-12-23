@@ -121,7 +121,8 @@ steps:
 
 - script: | 
     echo "curl -X GET $(terraform -chdir=terraform/aws output -raw base_url)hello -H 'x-api-key: $(terraform -chdir=terraform/aws output -raw api_key)'" > api_gateway_commands.txt
-    echo "curl -X POST $(terraform -chdir=terraform/aws output -raw base_url)myresource -H 'x-api-key: $(terraform -chdir=terraform/aws output -raw api_key)'" -H "Content-Type: application/json" -d '{"number1": 10, "number2": 56}' >> api_gateway_commands.txt
+    echo "" >> api_gateway_commands.txt
+    echo "curl -X POST $(terraform -chdir=terraform/aws output -raw base_url)myresource -H 'x-api-key: $(terraform -chdir=terraform/aws output -raw api_key)' -H 'Content-Type: application/json' -d '{\"number1\": 10, \"number2\": 56}' >> api_gateway_commands.txt
   displayName: 'Get aapi gw commands'
   condition: always()
 
