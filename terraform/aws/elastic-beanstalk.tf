@@ -19,11 +19,6 @@ resource "aws_elastic_beanstalk_environment" "myenv" {
     name      = "EnvironmentType"
     value     = "SingleInstance"  # Use 'LoadBalanced' for production
   }
-}
-
-
-resource "aws_elastic_beanstalk_environment" "myenv" {
-  # ... other configuration ...
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
@@ -37,3 +32,6 @@ resource "aws_elastic_beanstalk_environment" "myenv" {
     value     = "api.zip"
   }
 }
+
+
+
