@@ -50,6 +50,18 @@ resource "aws_elastic_beanstalk_environment" "myenv" {
     value     = "SingleInstance"  # Use 'LoadBalanced' for production
   }
 
+  setting {
+    namespace = "aws:ec2:vpc"
+    name      = "VPCId"
+    value     = aws_vpc.main.id
+  }
+
+  setting {
+    namespace = "aws:ec2:vpc"
+    name      = "Subnets"
+    value     = aws_subnet.public-subnet-a.id
+  }
+
 setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
