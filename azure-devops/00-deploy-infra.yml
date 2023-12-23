@@ -120,9 +120,9 @@ steps:
 #   condition: always()
 
 - script: | 
-    echo "curl -X GET $(terraform -chdir=terraform/aws output -raw base_url)hello -H "x-api-key: $(terraform -chdir=terraform/aws output -raw api_key)" > api_gateway_commands.txt
-    echo "curl -X POST $(terraform -chdir=terraform/aws output -raw base_url)myresource -H "x-api-key: $(terraform -chdir=terraform/aws output -raw api_key)" -H "Content-Type: application/json" -d '{"number1": 10, "number2": 56}' >> api_gateway_commands.txt
-  displayName: 'Configure AWS Profile'
+    echo "curl -X GET $(terraform -chdir=terraform/aws output -raw base_url)hello -H 'x-api-key: $(terraform -chdir=terraform/aws output -raw api_key)'" > api_gateway_commands.txt
+    echo "curl -X POST $(terraform -chdir=terraform/aws output -raw base_url)myresource -H 'x-api-key: $(terraform -chdir=terraform/aws output -raw api_key)'" -H "Content-Type: application/json" -d '{"number1": 10, "number2": 56}' >> api_gateway_commands.txt
+  displayName: 'Get aapi gw commands'
   condition: always()
 
 
@@ -132,6 +132,21 @@ steps:
   inputs:
     PathtoPublish: 'api_gateway_commands.txt'
     ArtifactName: 'api_gateway_commands'
+    publishLocation: 'Container'
+
+
+- script: | 
+    echo "$(terraform -chdir=terraform/aws output -raw ssh_host_public_dns):3000/tshirt" > ec2_api.txt
+  displayName: 'get ec2 url'
+  condition: always()
+
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Export ec2_api'
+  condition: always()
+  inputs:
+    PathtoPublish: 'ec2_api.txt'
+    ArtifactName: 'ec2_api'
     publishLocation: 'Container'
 
 # - script: | 
