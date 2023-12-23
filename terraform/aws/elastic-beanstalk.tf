@@ -8,11 +8,11 @@ resource "aws_elastic_beanstalk_environment" "myenv" {
   application         = aws_elastic_beanstalk_application.myapp.name
   solution_stack_name = "64bit Amazon Linux 2023 v6.0.4 running Node.js 18"  # Choose the relevant solution stack
 
-  setting {
-    namespace = "aws:elasticbeanstalk:container:nodejs"
-    name      = "NodeCommand"
-    value     = "npm start"
-  }
+#   setting {
+#     namespace = "aws:elasticbeanstalk:container:nodejs"
+#     name      = "NodeCommand"
+#     value     = "npm start"
+#   }
 
   setting {
     namespace = "aws:elasticbeanstalk:environment"
