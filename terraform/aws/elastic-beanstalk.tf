@@ -6,7 +6,7 @@ resource "aws_elastic_beanstalk_application" "myapp" {
 resource "aws_elastic_beanstalk_environment" "myenv" {
   name                = "my-express-app-env"
   application         = aws_elastic_beanstalk_application.myapp.name
-  solution_stack_name = "Node.js 18 running on 64bit Amazon Linux 2023"  # Choose the relevant solution stack
+  solution_stack_name = "64bit Amazon Linux 2023 v6.0.4 running Node.js 18"  # Choose the relevant solution stack
 
   setting {
     namespace = "aws:elasticbeanstalk:container:nodejs"
