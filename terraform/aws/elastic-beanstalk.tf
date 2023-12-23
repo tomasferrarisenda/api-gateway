@@ -23,7 +23,7 @@ resource "aws_elastic_beanstalk_environment" "myenv" {
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "S3_BUCKET"
-    value     = aws_s3_bucket.memes.name
+    value     = "${var.project}-memes-bucket"
   }
 
   setting {
@@ -32,6 +32,4 @@ resource "aws_elastic_beanstalk_environment" "myenv" {
     value     = "api.zip"
   }
 }
-
-
 
