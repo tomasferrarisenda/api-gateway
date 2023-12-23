@@ -14,14 +14,14 @@ resource "aws_s3_bucket" "memes" {
     }
 }
 
-resource "aws_s3_bucket" "memes" {
-  bucket = "my-unique-bucket-name"  # Replace with your unique bucket name
-  acl    = "public-read"            # This makes the bucket publicly readable
+# resource "aws_s3_bucket" "memes" {
+#   bucket = "my-unique-bucket-name"  # Replace with your unique bucket name
+#   acl    = "public-read"            # This makes the bucket publicly readable
 
-#   website {
-#     index_document = "index.html"  # Specify the index document
-#   }
-}
+# #   website {
+# #     index_document = "index.html"  # Specify the index document
+# #   }
+# }
 
 
 resource "aws_s3_bucket_object" "my_app" {
