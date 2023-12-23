@@ -17,7 +17,7 @@ resource "aws_iam_role" "eb_role" {
 
 resource "aws_iam_role_policy_attachment" "eb_role_policy" {
   role       = aws_iam_role.eb_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkFullAccess"  # Updated policy ARN
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkReadOnly"  # Updated policy ARN
 }
 
 
